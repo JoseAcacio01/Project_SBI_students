@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Students</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+
+</head>
+
+<body>
+
+	<br>
+
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button"
+			data-bs-toggle="dropdown" aria-expanded="false">User
+			Settings</button>
+		<ul class="dropdown-menu">
+			<li><a class="dropdown-item" th:href=@{/user/close/account}>Change Account</a></li>
+			<li><a class="dropdown-item" th:href=@{/user/edit}>Edit
+					Account</a></li>
+			<li><a class="dropdown-item" th:href=@{/user/close/account}>Close Account</a></li>
+			<li><a class="dropdown-item" th:href=@{/user/info}>info</a></li>
+		</ul>
+	</div>
+
+	<div class="containes">
+		<div class="row">
+			<h1>Students List</h1>
+		</div>
+
+		<div class="col-12">
+
+			<a class="btn btn-primary" th:href=@{/student/new}>Create Student</a>
+
+		</div>
+		
+		<br>
+
+		<form class="row g-3" th:action="@{/student/filter}">
+			<div class="col-auto">
+				<label for="staticEmail2" class="visually-hidden">Filter</label> <input
+					type="text" class="form-control-plaintext"
+					placeholder="Search by name" name="searchByName" id="searchByName"
+					th:value="${searchByName}">
+			</div>
+			<div class="col-auto">
+				<button type="submit" class="btn btn-primary mb-3">Search</button>
+			</div>
+		</form>
+
+
+		<br>
+
+		<table class="table">
+
+			<thead Class="table-dark">
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Phone</th>
+					<th scope="col">Email</th>
+					<th scope="col">DNI</th>
+					<th scope="col">Birthdate</th>
+					<th scope="col">Options</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="sl: ${studentsList}">
+					<th th:text="${sl.id}" scope="row"></th>
+					<td th:text="${sl.name}"></td>
+					<td th:text="${sl.lastname}"></td>
+					<td th:text="${sl.phone}"></td>
+					<td th:text="${sl.email}"></td>
+					<td th:text="${sl.dni}"></td>
+					<td th:text="${sl.birthdate}"></td>
+
+					<td><a class="btn btn-info"
+						th:href=@{/student/edit/{id}(id=${sl.id})}
+						onclick="return confirm('You are sure?')">Edit</a> <a
+						class="btn btn-danger"
+						th:href=@{/student/delete/{id}(id=${sl.id})}
+						onclick="return confirm('You are sure?');">Delete</a></td>
+
+				</tr>
+
+			</tbody>
+		</table>
+
+	</div>
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+</body>
+</html>
